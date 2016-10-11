@@ -8,6 +8,7 @@ Vagrant.configure(2) do |config|
       s.ssh.forward_agent = true
       s.vm.box = "ubuntu/xenial64"
       s.vm.hostname = "k8s#{i}"
+      s.vm.provision :shell, inline: "sed 's/127\.0\.0\.1.*k8s.*/172\.42\.42\.#{i} k8s#{i}/' -i /etc/hosts"
       s.vm.provision :shell, path: "scripts/bootstrap_ansible.sh"
       if i == 1
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/k8s-master.yml -c local"

@@ -5,9 +5,9 @@ to provisioning a 3 nodes Kubernetes cluster using `VirtualBox` and `Ubuntu
 
 ### Prerequisites
 You need the following installed to use this playground.
-- `Vagrant`, version 1.8.6 or better. Earlier versions of vagrant may not work
+- `Vagrant`, version 1.9.3 or better. Earlier versions of vagrant do not work
 with the Vagrant Ubuntu 16.04 box and network configuration.
-- `VirtualBox`, tested with Version 5.0.26 r108824
+- `VirtualBox`, tested with Version 5.1.18 r114002
 - Internet access, this playground pulls Vagrant boxes from the Internet as well
 as installs Ubuntu application packages from the Internet.
 

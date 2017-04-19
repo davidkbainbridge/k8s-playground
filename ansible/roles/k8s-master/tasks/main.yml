@@ -1,7 +1,7 @@
 ---
 - name: Ensure kubeadm initialization
   become: yes
-  command: "kubeadm init --token 2f1a31.00f66dec74fd53f3 --api-advertise-addresses=172.42.42.1"
+  command: "kubeadm init --token 2f1a31.00f66dec74fd53f3 --apiserver-advertise-address=172.42.42.1"
   tags:
     - k8s
 
@@ -18,28 +18,29 @@
     - "start-calico"
     - "start-canal"
 
-- name: Ensure jq package is installed
-  become: yes
-  apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - jq
-  tags:
-    - k8s
+#- name: Ensure jq package is installed
+#  become: yes
+#  apt:
+#    name: "{{ item }}"
+#    state: latest
+#  with_items:
+#    - jq
+#  tags:
+#    - k8s
 
-- name: Set --advertise-address flag in kube-apiserver static pod manifest (workaround for https://github.com/kubernetes/kubernetes/issues/34101)
-  become: yes
-  shell: "jq '.spec.containers[0].command |= .+ [\"--advertise-address=172.42.42.1\"]' /etc/kubernetes/manifests/kube-apiserver.json > /tmp/kube-apiserver.json && mv /tmp/kube-apiserver.json /etc/kubernetes/manifests/kube-apiserver.json"
-  tags:
-    - k8s
-
-- name: Set --proxy-mode flag in kube-proxy daemonset (workaround for https://github.com/kubernetes/kubernetes/issues/34101)
-  become: yes
-  shell: "kubectl -n kube-system get ds -l 'component=kube-proxy' -o json | jq '.items[0].spec.template.spec.containers[0].command |= .+ [\"--proxy-mode=userspace\"]' | kubectl apply -f - && kubectl -n kube-system delete pods -l 'component=kube-proxy'"
-  register: proxy
-  until: proxy.rc == 0
-  retries: 20
-  delay: 10
-  tags:
-    - k8s
+#
+#- name: Set --advertise-address flag in kube-apiserver static pod manifest (workaround for https://github.com/kubernetes/kubernetes/issues/34101)
+#  become: yes
+#  shell: "jq '.spec.containers[0].command |= .+ [\"--advertise-address=172.42.42.1\"]' /etc/kubernetes/manifests/kube-apiserver.json > /tmp/kube-apiserver.json && mv /tmp/kube-apiserver.json /etc/kubernetes/manifests/kube-apiserver.json"
+#  tags:
+#    - k8s
+#
+#- name: Set --proxy-mode flag in kube-proxy daemonset (workaround for https://github.com/kubernetes/kubernetes/issues/34101)
+#  become: yes
+#  shell: "kubectl -n kube-system get ds -l 'component=kube-proxy' -o json | jq '.items[0].spec.template.spec.containers[0].command |= .+ [\"--proxy-mode=userspace\"]' | kubectl apply -f - && kubectl -n kube-system delete pods -l 'component=kube-proxy'"
+#  register: proxy
+#  until: proxy.rc == 0
+#  retries: 20
+#  delay: 10
+#  tags:
+#    - k8s

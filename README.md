@@ -39,7 +39,7 @@ The machines created are:
 | k8s3 | 172.42.42.3 | Cluster Worker |
 
 As the cluster brought up the cluster master (**k8s1**) will perform a `kubeadm
-init` and the cluster workers will perform a `kubeadmin join`. This cluster is
+init` and the cluster workers will perform a `kubeadm join`. This cluster is
 using a static Kubernetes cluster token.
 
 After the `vagrant up` is complete, the following command and output should be

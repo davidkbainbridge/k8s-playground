@@ -34,9 +34,9 @@ The machines created are:
 
 | NAME | IP ADDRESS | ROLE |
 | --- | --- | --- |
-| k8s1 | 172.42.42.1 | Cluster Master |
-| k8s2 | 172.42.42.2 | Cluster Worker |
-| k8s3 | 172.42.42.3 | Cluster Worker |
+| k8s1 | 172.42.42.11 | Cluster Master |
+| k8s2 | 172.42.42.12 | Cluster Worker |
+| k8s3 | 172.42.42.13 | Cluster Worker |
 
 As the cluster brought up the cluster master (**k8s1**) will perform a `kubeadm
 init` and the cluster workers will perform a `kubeadmin join`. This cluster is

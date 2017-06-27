@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hello-deployment
 spec:
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:

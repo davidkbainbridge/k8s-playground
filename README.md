@@ -34,9 +34,9 @@ The machines created are:
 
 | NAME | IP ADDRESS | ROLE |
 | --- | --- | --- |
-| k8s1 | 172.42.42.1 | Cluster Master |
-| k8s2 | 172.42.42.2 | Cluster Worker |
-| k8s3 | 172.42.42.3 | Cluster Worker |
+| k8s1 | 172.42.42.11 | Cluster Master |
+| k8s2 | 172.42.42.12 | Cluster Worker |
+| k8s3 | 172.42.42.13 | Cluster Worker |
 
 As the cluster brought up the cluster master (**k8s1**) will perform a `kubeadm
 init` and the cluster workers will perform a `kubeadmin join`. This cluster is
@@ -47,18 +47,18 @@ visible on the cluster master (**k8s1**).
 
 ```
 vagrant ssh k8s1
-kubectl -n kube-system get po -o wide
+kubectl -n kube-system get pods -o wide
 
 NAME                             READY     STATUS              RESTARTS   AGE       IP            NODE
-etcd-k8s1                        1/1       Running             0          10m       172.42.42.1   k8s1
-kube-apiserver-k8s1              1/1       Running             1          10m       172.42.42.1   k8s1
-kube-controller-manager-k8s1     1/1       Running             0          11m       172.42.42.1   k8s1
-kube-discovery-982812725-pv5ib   1/1       Running             0          11m       172.42.42.1   k8s1
+etcd-k8s1                        1/1       Running             0          10m       172.42.42.11   k8s1
+kube-apiserver-k8s1              1/1       Running             1          10m       172.42.42.11   k8s1
+kube-controller-manager-k8s1     1/1       Running             0          11m       172.42.42.11   k8s1
+kube-discovery-982812725-pv5ib   1/1       Running             0          11m       172.42.42.11   k8s1
 kube-dns-2247936740-cucu9        0/3       ContainerCreating   0          10m       <none>        k8s1
-kube-proxy-amd64-kt8d6           1/1       Running             0          10m       172.42.42.1   k8s1
-kube-proxy-amd64-o73p7           1/1       Running             0          5m        172.42.42.3   k8s3
-kube-proxy-amd64-piie9           1/1       Running             0          8m        172.42.42.2   k8s2
-kube-scheduler-k8s1              1/1       Running             0          11m       172.42.42.1   k8s1
+kube-proxy-amd64-kt8d6           1/1       Running             0          10m       172.42.42.11   k8s1
+kube-proxy-amd64-o73p7           1/1       Running             0          5m        172.42.42.13   k8s3
+kube-proxy-amd64-piie9           1/1       Running             0          8m        172.42.42.12   k8s2
+kube-scheduler-k8s1              1/1       Running             0          11m       172.42.42.11   k8s1
 ```
 
 ### Starting Networking
@@ -82,18 +82,18 @@ command and output should be visible on the master node (**k8s1**):
 vagrant ssh k8s1
 $ kubectl -n kube-system get po -o wide
 NAME                             READY     STATUS    RESTARTS   AGE       IP            NODE
-etcd-k8s1                        1/1       Running   0          14m       172.42.42.1   k8s1
-kube-apiserver-k8s1              1/1       Running   1          13m       172.42.42.1   k8s1
-kube-controller-manager-k8s1     1/1       Running   0          14m       172.42.42.1   k8s1
-kube-discovery-982812725-pv5ib   1/1       Running   0          14m       172.42.42.1   k8s1
+etcd-k8s1                        1/1       Running   0          14m       172.42.42.11   k8s1
+kube-apiserver-k8s1              1/1       Running   1          13m       172.42.42.11   k8s1
+kube-controller-manager-k8s1     1/1       Running   0          14m       172.42.42.11   k8s1
+kube-discovery-982812725-pv5ib   1/1       Running   0          14m       172.42.42.11   k8s1
 kube-dns-2247936740-cucu9        3/3       Running   0          14m       10.40.0.1     k8s1
-kube-proxy-amd64-kt8d6           1/1       Running   0          13m       172.42.42.1   k8s1
-kube-proxy-amd64-o73p7           1/1       Running   0          8m        172.42.42.3   k8s3
-kube-proxy-amd64-piie9           1/1       Running   0          11m       172.42.42.2   k8s2
-kube-scheduler-k8s1              1/1       Running   0          14m       172.42.42.1   k8s1
-weave-net-33rjx                  2/2       Running   0          3m        172.42.42.2   k8s2
-weave-net-3z7jj                  2/2       Running   0          3m        172.42.42.1   k8s1
-weave-net-uvv48                  2/2       Running   0          3m        172.42.42.3   k8s3
+kube-proxy-amd64-kt8d6           1/1       Running   0          13m       172.42.42.11   k8s1
+kube-proxy-amd64-o73p7           1/1       Running   0          8m        172.42.42.13   k8s3
+kube-proxy-amd64-piie9           1/1       Running   0          11m       172.42.42.12   k8s2
+kube-scheduler-k8s1              1/1       Running   0          14m       172.42.42.11   k8s1
+weave-net-33rjx                  2/2       Running   0          3m        172.42.42.12   k8s2
+weave-net-3z7jj                  2/2       Running   0          3m        172.42.42.11   k8s1
+weave-net-uvv48                  2/2       Running   0          3m        172.42.42.13   k8s3
 ```
 
 ### Starting A Sample Service / Deployment

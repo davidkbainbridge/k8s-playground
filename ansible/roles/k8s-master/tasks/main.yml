@@ -1,7 +1,7 @@
 ---
 - name: Ensure kubeadm initialization
   become: yes
-  command: "kubeadm init --token 2f1a31.00f66dec74fd53f3 --apiserver-advertise-address=172.42.42.1"
+  command: "kubeadm init --token 2f1a31.00f66dec74fd53f3 --apiserver-advertise-address=172.42.42.11"
   tags:
     - k8s
 

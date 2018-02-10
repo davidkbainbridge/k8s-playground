@@ -41,9 +41,9 @@
     dest: /etc/hosts
     line: "{{ item.ip }} {{ item.name }}"
   with_items:
-    - { ip: "172.42.42.1", name: "k8s1" }
-    - { ip: "172.42.42.2", name: "k8s2" }
-    - { ip: "172.42.42.3", name: "k8s3" }
+    - { ip: "172.42.42.11", name: "k8s1" }
+    - { ip: "172.42.42.12", name: "k8s2" }
+    - { ip: "172.42.42.13", name: "k8s3" }
 
 - name: Ensure Google Cloud Apt Key
   become: yes
@@ -75,6 +75,17 @@
     - kubectl
     - kubernetes-cni
     - jq
+  tags:
+    - k8s
+
+- name: Ensure JSONPath.sh
+  become: yes
+  copy:
+    src: files/JSONPath.sh
+    dest: /usr/bin/JSONPath.sh
+    mode: 0755
+    owner: ubuntu
+    group: ubuntu
   tags:
     - k8s
 
